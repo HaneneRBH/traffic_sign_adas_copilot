@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# Dataset & trained weights (never commit these)
+GTSRB/
+*.pt
+*.pth
+*.onnx
+
+# Ignore everything under data/ EXCEPT the authored knowledge base ...
+data/*
+!data/knowledge_base/
+data/knowledge_base/*
+!data/knowledge_base/gtsrb_rules.json
+# (generated retrieval index stays out — it is rebuilt by embed_index.py)
+
+# Checkpoint metrics are local artifacts
+checkpoints/*.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.spyproject/
+.idea/
+.vscode/

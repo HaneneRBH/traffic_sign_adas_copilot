@@ -1,0 +1,404 @@
+{
+  "_schema": {
+    "description": "Traffic-Sign ADAS Copilot - knowledge base. One entry per GTSRB class (0-42). Each entry is retrieved by class_id, embedded into vectors, and used by the LLM to generate a grounded explanation. Keep 'rule' and 'context' factual and concise; the LLM will paraphrase them.",
+    "fields": {
+      "class_id": "int (0-42), matches GTSRB ClassId",
+      "name": "short human-readable sign name",
+      "category": "one of: speed_limit, prohibition, mandatory, warning, priority, other",
+      "rule": "the traffic rule the sign imposes, in plain English (1-2 sentences)",
+      "context": "when/where this sign is typically placed (1 sentence)",
+      "typical_danger": "the risk the sign warns about or the behavior it prevents (1 sentence)",
+      "driver_action": "what the driver should do concretely (1 sentence, imperative)"
+    },
+    "authoring_note": "This KB is generic and inspired by international road-sign conventions (Vienna Convention). Cite your local highway code in production. Below are 4 template entries covering each category. Fill in the remaining 39 classes using these as models."
+  },
+  "entries": [
+    {
+      "class_id": 0,
+      "name": "Speed limit (20km/h)",
+      "category": "speed_limit",
+      "rule": "You must not exceed 20 km/h until the limit is cancelled or a new limit is posted.",
+      "context": "Placed in very low-speed zones such as shared spaces, car parks, or narrow lanes with heavy pedestrian activity.",
+      "typical_danger": "Even modest speeds here leave little room to stop for pedestrians who may step into the road unexpectedly.",
+      "driver_action": "Slow the vehicle to at most 20 km/h before the sign and keep a careful watch for pedestrians."
+    },
+    {
+      "class_id": 1,
+      "name": "Speed limit (30km/h)",
+      "category": "speed_limit",
+      "rule": "You must not exceed 30 km/h until the limit is cancelled or a new limit is posted.",
+      "context": "Placed in urban areas, near schools, residential zones, or road works where lower speeds are required for safety.",
+      "typical_danger": "Higher speeds increase stopping distance and the severity of collisions with pedestrians or cyclists.",
+      "driver_action": "Slow the vehicle to at most 30 km/h before passing the sign and maintain that speed."
+    },
+    {
+      "class_id": 2,
+      "name": "Speed limit (50km/h)",
+      "category": "speed_limit",
+      "rule": "You must not exceed 50 km/h until the limit is cancelled or a new limit is posted.",
+      "context": "The typical default limit inside built-up areas, marking the start of an urban speed zone.",
+      "typical_danger": "Exceeding the urban limit sharply increases stopping distance and the risk to pedestrians and cyclists.",
+      "driver_action": "Reduce speed to at most 50 km/h before the sign and maintain it through the built-up area."
+    },
+    {
+      "class_id": 3,
+      "name": "Speed limit (60km/h)",
+      "category": "speed_limit",
+      "rule": "You must not exceed 60 km/h until the limit is cancelled or a new limit is posted.",
+      "context": "Placed on transition roads between urban and rural areas, or on approaches with reduced safety margins.",
+      "typical_danger": "Carrying higher speed into bends or junctions on these roads reduces the time available to react.",
+      "driver_action": "Adjust speed to at most 60 km/h before the sign and stay alert for changing conditions."
+    },
+    {
+      "class_id": 4,
+      "name": "Speed limit (70km/h)",
+      "category": "speed_limit",
+      "rule": "You must not exceed 70 km/h until the limit is cancelled or a new limit is posted.",
+      "context": "Placed on rural roads or main arteries where a moderate speed is safe but the open-road limit is not.",
+      "typical_danger": "Higher speeds lengthen braking distance for oncoming traffic, junctions, or slow vehicles ahead.",
+      "driver_action": "Keep the vehicle at or below 70 km/h and increase your following distance."
+    },
+    {
+      "class_id": 5,
+      "name": "Speed limit (80km/h)",
+      "category": "speed_limit",
+      "rule": "You must not exceed 80 km/h until the limit is cancelled or a new limit is posted.",
+      "context": "A common limit on rural highways and dual-carriageway approaches outside built-up areas.",
+      "typical_danger": "At this speed, loss of control or a late reaction to hazards can have severe consequences.",
+      "driver_action": "Maintain a speed of at most 80 km/h and keep a safe gap to the vehicle ahead."
+    },
+    {
+      "class_id": 6,
+      "name": "End of speed limit (80km/h)",
+      "category": "other",
+      "rule": "The previously posted 80 km/h limit no longer applies; the general limit for the road now takes effect.",
+      "context": "Placed at the end of an 80 km/h restriction zone to signal a return to the default limit.",
+      "typical_danger": "Assuming the road is now unrestricted may lead to unsafe speeds if a lower general limit still applies.",
+      "driver_action": "Resume the general limit for the road type and continue to adjust speed to the conditions."
+    },
+    {
+      "class_id": 7,
+      "name": "Speed limit (100km/h)",
+      "category": "speed_limit",
+      "rule": "You must not exceed 100 km/h until the limit is cancelled or a new limit is posted.",
+      "context": "Placed on expressways or motorway sections where higher travel speeds are permitted.",
+      "typical_danger": "High closing speeds leave very little margin for sudden braking or lane changes ahead.",
+      "driver_action": "Keep at or below 100 km/h, maintain a large following distance, and check mirrors before manoeuvres."
+    },
+    {
+      "class_id": 8,
+      "name": "Speed limit (120km/h)",
+      "category": "speed_limit",
+      "rule": "You must not exceed 120 km/h until the limit is cancelled or a new limit is posted.",
+      "context": "Placed on motorways where the highest permitted travelling speed applies.",
+      "typical_danger": "At motorway speeds, stopping distances are long and even small errors escalate quickly.",
+      "driver_action": "Stay at or below 120 km/h, keep well back from the vehicle ahead, and signal early for lane changes."
+    },
+    {
+      "class_id": 9,
+      "name": "No passing",
+      "category": "prohibition",
+      "rule": "Overtaking other motor vehicles is prohibited from this sign until the restriction is lifted.",
+      "context": "Placed where sight distance is limited, such as bends, crests, or narrowing roads.",
+      "typical_danger": "Overtaking here risks a head-on collision with oncoming traffic hidden by the limited sight line.",
+      "driver_action": "Do not overtake; stay in your lane until an end-of-no-passing sign or clear markings permit it."
+    },
+    {
+      "class_id": 10,
+      "name": "No passing for vehicles over 3.5 metric tons",
+      "category": "prohibition",
+      "rule": "Vehicles with a permitted mass over 3.5 tonnes must not overtake from this sign until the restriction is lifted.",
+      "context": "Placed on gradients or narrow sections where slow, heavy vehicles overtaking would obstruct traffic.",
+      "typical_danger": "A heavy vehicle overtaking slowly blocks lanes and creates long queues and passing conflicts.",
+      "driver_action": "If driving a vehicle over 3.5 tonnes, remain in lane and do not attempt to overtake."
+    },
+    {
+      "class_id": 11,
+      "name": "Right-of-way at the next intersection",
+      "category": "priority",
+      "rule": "You have priority over traffic on the crossing road at the next intersection.",
+      "context": "Placed on the approach to a junction where the crossing road must give way to you.",
+      "typical_danger": "Relying on priority without checking can be dangerous if a crossing driver fails to yield.",
+      "driver_action": "Proceed with your priority but stay alert and be ready to brake if crossing traffic does not stop."
+    },
+    {
+      "class_id": 12,
+      "name": "Priority road",
+      "category": "priority",
+      "rule": "You are on a priority road and have right of way at its intersections until an end-of-priority sign appears.",
+      "context": "Placed along main routes to indicate continuing priority over side roads.",
+      "typical_danger": "Drivers entering from side roads may misjudge your speed and pull out into your path.",
+      "driver_action": "Keep your priority but watch side roads for vehicles that may fail to give way."
+    },
+    {
+      "class_id": 13,
+      "name": "Yield",
+      "category": "priority",
+      "rule": "You must give way to traffic on the road you are entering or crossing, stopping if necessary.",
+      "context": "Placed at junctions where the crossing or main road has priority.",
+      "typical_danger": "Entering without yielding causes collisions with vehicles that have the right of way.",
+      "driver_action": "Slow down on approach, give way to priority traffic, and proceed only when the way is clear."
+    },
+    {
+      "class_id": 14,
+      "name": "Stop",
+      "category": "prohibition",
+      "rule": "You must come to a complete stop at the stop line (or before the intersection if no line is present) and give way to all traffic and pedestrians before proceeding.",
+      "context": "Placed at intersections where visibility is limited or where the crossing road has clear priority.",
+      "typical_danger": "Rolling through the sign without stopping causes broadside collisions with vehicles on the priority road.",
+      "driver_action": "Bring the vehicle to a full stop, look in all directions, and only proceed when the intersection is clear."
+    },
+    {
+      "class_id": 15,
+      "name": "No vehicles",
+      "category": "prohibition",
+      "rule": "Entry is prohibited for all vehicles in both directions from this sign.",
+      "context": "Placed at the entrance to pedestrian zones or areas closed to general traffic.",
+      "typical_danger": "Entering a closed area endangers pedestrians and other permitted users who do not expect vehicles.",
+      "driver_action": "Do not enter; find an alternative route unless you belong to an explicitly exempt category."
+    },
+    {
+      "class_id": 16,
+      "name": "Vehicles over 3.5 metric tons prohibited",
+      "category": "prohibition",
+      "rule": "Vehicles with a permitted mass over 3.5 tonnes must not proceed beyond this sign.",
+      "context": "Placed on roads, bridges, or zones unsuitable for heavy vehicles due to weight or size limits.",
+      "typical_danger": "A heavy vehicle on an unsuitable road risks damaging bridges or getting stuck in narrow sections.",
+      "driver_action": "If your vehicle exceeds 3.5 tonnes, do not proceed and take the designated diversion."
+    },
+    {
+      "class_id": 17,
+      "name": "No entry",
+      "category": "prohibition",
+      "rule": "Entry is prohibited for all vehicles in the direction the sign faces.",
+      "context": "Placed at the exit of one-way streets or restricted carriageways to prevent wrong-way driving.",
+      "typical_danger": "Entering here means driving against oncoming one-way traffic, a high risk of head-on collision.",
+      "driver_action": "Do not enter; continue past and use a permitted entrance instead."
+    },
+    {
+      "class_id": 18,
+      "name": "General caution",
+      "category": "warning",
+      "rule": "Warns of a hazard ahead not covered by a more specific sign; heightened attention is required.",
+      "context": "Placed before a section with an unusual or unmarked danger.",
+      "typical_danger": "An unexpected hazard can catch an inattentive driver with too little time to react.",
+      "driver_action": "Reduce speed, stay alert, and be ready to respond to whatever hazard appears."
+    },
+    {
+      "class_id": 19,
+      "name": "Dangerous curve to the left",
+      "category": "warning",
+      "rule": "Warns of a sharp curve to the left ahead; adjust speed before entering it.",
+      "context": "Placed ahead of a left bend tight enough to require slowing down.",
+      "typical_danger": "Entering the curve too fast risks running wide or losing traction.",
+      "driver_action": "Slow down before the bend and steer smoothly through it without braking hard mid-curve."
+    },
+    {
+      "class_id": 20,
+      "name": "Dangerous curve to the right",
+      "category": "warning",
+      "rule": "Warns of a sharp curve to the right ahead; adjust speed before entering it.",
+      "context": "Placed ahead of a right bend tight enough to require slowing down.",
+      "typical_danger": "Entering the curve too fast risks crossing into the opposite lane or leaving the road.",
+      "driver_action": "Slow down before the bend and steer smoothly through it without braking hard mid-curve."
+    },
+    {
+      "class_id": 21,
+      "name": "Double curve",
+      "category": "warning",
+      "rule": "Warns of two successive curves ahead; reduce speed and be ready to change direction twice.",
+      "context": "Placed before a pair of bends in opposite directions with little straight road between them.",
+      "typical_danger": "Carrying too much speed into the first bend leaves no time to set up for the second.",
+      "driver_action": "Reduce speed before the first curve and stay controlled through both bends."
+    },
+    {
+      "class_id": 22,
+      "name": "Bumpy road",
+      "category": "warning",
+      "rule": "Warns of an uneven road surface ahead; reduce speed to keep control.",
+      "context": "Placed before sections with bumps, dips, or a damaged surface.",
+      "typical_danger": "Bumps taken at speed can unsettle the vehicle, reduce grip, or damage the suspension.",
+      "driver_action": "Slow down before the rough section and keep a firm hold on the wheel."
+    },
+    {
+      "class_id": 23,
+      "name": "Slippery road",
+      "category": "warning",
+      "rule": "Warns that the road may be slippery ahead; reduce speed and avoid sudden inputs.",
+      "context": "Placed where the surface can lose grip due to ice, rain, mud, or loose material.",
+      "typical_danger": "Braking, accelerating, or steering sharply on a slippery surface can cause skidding.",
+      "driver_action": "Reduce speed early, brake and steer gently, and increase your following distance."
+    },
+    {
+      "class_id": 24,
+      "name": "Road narrows on the right",
+      "category": "warning",
+      "rule": "Warns that the carriageway narrows from the right ahead; adjust your position if needed.",
+      "context": "Placed before a point where the road or the right-hand lane becomes narrower.",
+      "typical_danger": "Failing to adjust position can lead to sideswipe conflicts as the space reduces.",
+      "driver_action": "Reduce speed, check your right side, and adjust lane position for the narrower road."
+    },
+    {
+      "class_id": 25,
+      "name": "Road work",
+      "category": "warning",
+      "rule": "Warns of construction or maintenance ahead; adapted speed and heightened attention are required until the end of the works.",
+      "context": "Placed before road-work zones, temporary lane closures, or areas with workers, equipment, or uneven surfaces.",
+      "typical_danger": "Unexpected obstacles, workers on the roadway, sudden lane shifts, and loose gravel can cause loss of control.",
+      "driver_action": "Reduce speed, increase following distance, and be ready to stop; do not overtake within the works zone."
+    },
+    {
+      "class_id": 26,
+      "name": "Traffic signals",
+      "category": "warning",
+      "rule": "Warns of traffic lights ahead; be prepared to stop when signalled.",
+      "context": "Placed before a signal-controlled junction, often where the lights are not visible far in advance.",
+      "typical_danger": "Approaching too fast risks running a red light or making a sudden hard stop.",
+      "driver_action": "Ease off the accelerator on approach and be ready to stop at the signal."
+    },
+    {
+      "class_id": 27,
+      "name": "Pedestrians",
+      "category": "warning",
+      "rule": "Warns of a pedestrian crossing or an area with pedestrians ahead; give way as required.",
+      "context": "Placed before crossings or stretches where pedestrians frequently enter the road.",
+      "typical_danger": "Pedestrians may step onto the road with little warning, leaving short reaction time.",
+      "driver_action": "Reduce speed, scan both sides, and be ready to stop for anyone crossing."
+    },
+    {
+      "class_id": 28,
+      "name": "Children crossing",
+      "category": "warning",
+      "rule": "Warns of an area with children ahead, such as near a school; extra caution is required.",
+      "context": "Placed near schools, playgrounds, or residential zones with frequent child activity.",
+      "typical_danger": "Children may run into the road unpredictably and are hard to see between parked vehicles.",
+      "driver_action": "Slow right down, watch the roadside closely, and be prepared to stop immediately."
+    },
+    {
+      "class_id": 29,
+      "name": "Bicycles crossing",
+      "category": "warning",
+      "rule": "Warns of a cycle crossing or route ahead where cyclists may join or cross the road.",
+      "context": "Placed where a cycle path meets or crosses the carriageway.",
+      "typical_danger": "Cyclists can appear quickly from the side and are easily missed in blind spots.",
+      "driver_action": "Reduce speed, check for cyclists on both sides, and give way where required."
+    },
+    {
+      "class_id": 30,
+      "name": "Beware of ice/snow",
+      "category": "warning",
+      "rule": "Warns that the road may be icy or snow-covered ahead; reduce speed and drive gently.",
+      "context": "Placed on shaded, exposed, or high-altitude sections prone to ice and snow.",
+      "typical_danger": "Ice or packed snow drastically reduces grip, greatly increasing stopping distance.",
+      "driver_action": "Slow down well in advance, avoid sudden braking or steering, and leave a large gap ahead."
+    },
+    {
+      "class_id": 31,
+      "name": "Wild animals crossing",
+      "category": "warning",
+      "rule": "Warns that wild animals may cross the road ahead; stay alert, especially at dawn and dusk.",
+      "context": "Placed on rural roads through forests or open country where animals frequently cross.",
+      "typical_danger": "An animal entering the road suddenly can cause a collision or a dangerous swerve.",
+      "driver_action": "Reduce speed, scan the roadsides, and brake in a straight line rather than swerving if an animal appears."
+    },
+    {
+      "class_id": 32,
+      "name": "End of all speed and passing limits",
+      "category": "other",
+      "rule": "All previously posted speed and overtaking restrictions are cancelled; the general rules for the road now apply.",
+      "context": "Placed at the end of a restricted section to lift the earlier limits.",
+      "typical_danger": "Accelerating without regard for conditions can be unsafe even where restrictions have ended.",
+      "driver_action": "Return to the general limits for the road and continue to adapt speed to the conditions."
+    },
+    {
+      "class_id": 33,
+      "name": "Turn right ahead",
+      "category": "mandatory",
+      "rule": "You must turn right ahead; other directions are not permitted at this point.",
+      "context": "Placed before a junction where traffic is directed to the right only.",
+      "typical_danger": "Ignoring the instruction causes conflicts with a layout and traffic that assume a right turn.",
+      "driver_action": "Signal and prepare to turn right, positioning the vehicle correctly in advance."
+    },
+    {
+      "class_id": 34,
+      "name": "Turn left ahead",
+      "category": "mandatory",
+      "rule": "You must turn left ahead; other directions are not permitted at this point.",
+      "context": "Placed before a junction where traffic is directed to the left only.",
+      "typical_danger": "Ignoring the instruction causes conflicts with oncoming or crossing traffic.",
+      "driver_action": "Signal and prepare to turn left, positioning the vehicle correctly in advance."
+    },
+    {
+      "class_id": 35,
+      "name": "Ahead only",
+      "category": "mandatory",
+      "rule": "You must continue straight ahead; turning left or right at this point is not permitted.",
+      "context": "Placed at intersections where turns are restricted to preserve traffic flow or prevent conflicts with priority lanes.",
+      "typical_danger": "Attempting a turn against this instruction causes conflicts with oncoming or crossing traffic.",
+      "driver_action": "Continue straight through the intersection and do not attempt to turn."
+    },
+    {
+      "class_id": 36,
+      "name": "Go straight or right",
+      "category": "mandatory",
+      "rule": "You must continue straight ahead or turn right; turning left is not permitted.",
+      "context": "Placed at junctions where the left turn is closed to preserve traffic flow.",
+      "typical_danger": "Attempting a left turn conflicts with the permitted movements and other road users.",
+      "driver_action": "Choose to go straight or turn right, and signal your intended direction."
+    },
+    {
+      "class_id": 37,
+      "name": "Go straight or left",
+      "category": "mandatory",
+      "rule": "You must continue straight ahead or turn left; turning right is not permitted.",
+      "context": "Placed at junctions where the right turn is closed to preserve traffic flow.",
+      "typical_danger": "Attempting a right turn conflicts with the permitted movements and other road users.",
+      "driver_action": "Choose to go straight or turn left, and signal your intended direction."
+    },
+    {
+      "class_id": 38,
+      "name": "Keep right",
+      "category": "mandatory",
+      "rule": "You must pass to the right of the sign or obstacle it marks.",
+      "context": "Placed at traffic islands, obstructions, or lane divisions to direct traffic to the right.",
+      "typical_danger": "Passing on the wrong side risks a collision with oncoming or dividing traffic.",
+      "driver_action": "Steer to the right of the marked point and keep to the correct side."
+    },
+    {
+      "class_id": 39,
+      "name": "Keep left",
+      "category": "mandatory",
+      "rule": "You must pass to the left of the sign or obstacle it marks.",
+      "context": "Placed at traffic islands, obstructions, or lane divisions to direct traffic to the left.",
+      "typical_danger": "Passing on the wrong side risks a collision with oncoming or dividing traffic.",
+      "driver_action": "Steer to the left of the marked point and keep to the correct side."
+    },
+    {
+      "class_id": 40,
+      "name": "Roundabout mandatory",
+      "category": "mandatory",
+      "rule": "You must proceed around the roundabout in the direction shown, giving way as required on entry.",
+      "context": "Placed at the approach to a roundabout to indicate the mandatory circulating direction.",
+      "typical_danger": "Entering without yielding or taking the wrong direction causes conflicts with circulating traffic.",
+      "driver_action": "Give way to traffic already on the roundabout, then enter and follow the indicated direction."
+    },
+    {
+      "class_id": 41,
+      "name": "End of no passing",
+      "category": "other",
+      "rule": "The earlier no-overtaking restriction ends; overtaking is again permitted where it is otherwise safe and legal.",
+      "context": "Placed at the end of a no-passing section to lift the restriction.",
+      "typical_danger": "Overtaking immediately without checking the road ahead can still be dangerous.",
+      "driver_action": "Overtake only when you have a clear view and enough space to do so safely."
+    },
+    {
+      "class_id": 42,
+      "name": "End of no passing by vehicles over 3.5 metric tons",
+      "category": "other",
+      "rule": "The no-overtaking restriction for vehicles over 3.5 tonnes ends; such vehicles may overtake again where safe and legal.",
+      "context": "Placed at the end of a section where heavy vehicles were barred from overtaking.",
+      "typical_danger": "A heavy vehicle overtaking too soon or without a clear view can obstruct traffic and cause conflicts.",
+      "driver_action": "If driving a vehicle over 3.5 tonnes, overtake only with a clear view and adequate space."
+    }
+  ]
+}

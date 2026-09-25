@@ -1,0 +1,20 @@
+# Phase 1 - Perception (fine-tuning). CPU-only friendly.
+torch>=2.5.0
+torchvision>=0.20.0
+pandas>=2.0
+pillow>=10.0
+numpy>=1.24
+
+# Phase 2 - RAG (retrieval + grounded explanation). CPU-only.
+sentence-transformers>=2.2   # embeds the 43 rule cards (pulls torch, already above)
+requests>=2.28               # talks to the local Ollama server
+# faiss-cpu>=1.7             # OPTIONAL: retriever falls back to NumPy if absent
+# Ollama is a separate local app, not a pip package: https://ollama.com
+#   after install:  ollama pull llama3.2   (small, CPU-friendly)
+
+# Phase 4 - Deployment (Streamlit demo). ONNX/INT8 export already lives in evaluate.py.
+streamlit>=1.30
+
+# --- Later phases (install when you reach them) ---
+# Phase 3 RL:         gymnasium, numpy
+# Phase 4 extras:     onnx, onnxruntime (for serving the quantized model)
