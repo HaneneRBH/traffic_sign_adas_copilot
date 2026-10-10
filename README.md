@@ -1,8 +1,10 @@
 # Traffic-Sign ADAS Copilot
 
 <p align="center">
-  <img src="figures/exemple1.png" width="49%" alt="Streamlit demo: predicted sign and grounded explanation (example 1)">
-  <img src="figures/exemple2.png" width="49%" alt="Streamlit demo: predicted sign and grounded explanation (example 2)">
+  <img src="figures/exemple1.png" width="90%" alt="Streamlit demo: predicted sign and grounded explanation (example 1)">
+</p>
+<p align="center">
+  <img src="figures/exemple2.png" width="90%" alt="Streamlit demo: predicted sign and grounded explanation (example 2)">
 </p>
 <p align="center"><em>Streamlit demo (CPU only): the fine-tuned MobileNetV3-Small predicts the sign, then the explanation is built from the matching rule card of the knowledge base (template mode, no LLM).</em></p>
 
@@ -208,6 +210,7 @@ src/pipeline/
 data/knowledge_base/
     gtsrb_rules.json         # 43 grounded traffic-rule entries (versioned)
 checkpoints/                 # trained weights + metrics (git-ignored)
+figures/                     # README screenshots of the Streamlit demo
 ```
 
 ---
