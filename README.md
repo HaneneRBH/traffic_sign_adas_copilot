@@ -1,5 +1,11 @@
 # Traffic-Sign ADAS Copilot
 
+<p align="center">
+  <img src="figures/exemple1.png" width="49%" alt="Streamlit demo: predicted sign and grounded explanation (example 1)">
+  <img src="figures/exemple2.png" width="49%" alt="Streamlit demo: predicted sign and grounded explanation (example 2)">
+</p>
+<p align="center"><em>Streamlit demo (CPU only): the fine-tuned MobileNetV3-Small predicts the sign, then the explanation is built from the matching rule card of the knowledge base (template mode, no LLM).</em></p>
+
 An end-to-end driver-assistance pipeline built around the GTSRB traffic-sign
 dataset, where four ML techniques each own a distinct stage of the system
 instead of being bolted onto one classification task:
